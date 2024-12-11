@@ -19,35 +19,11 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import useTransactions from "../uses/fetchTransactions";
 export default {
-  // data() {
-  //   return {
-  //     transactions: [],
-  //   };
-  // },
-  // created() {
-  //   fetch("http://localhost:3000/transactions")
-  //     .then((response) => response.json())
-  //     .then((data) => (this.transactions = data));
-  // },
   setup() {
-    const transactions = ref([]);
-    const error = ref(null);
-    console.log(transactions, error);
-
-    const fetchAll = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/transactions");
-        if (!response.ok) throw new Error("something went wrong");
-        transactions.value = await response.json();
-      } catch (err) {
-        error.value = err;
-        console.log(error.value);
-      }
-    };
+    const { transactions, error, fetchAll } = useTransactions();
     fetchAll();
-
     return {
       transactions,
       error,
